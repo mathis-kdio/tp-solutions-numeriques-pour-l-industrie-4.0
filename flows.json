@@ -1,0 +1,159 @@
+[
+    {
+        "id": "2e1881eaf0bfaebd",
+        "type": "tab",
+        "label": "Local Edge of Network",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "90ef91771938e74e",
+        "type": "function",
+        "z": "2e1881eaf0bfaebd",
+        "name": "Prepare Sparkplug B Message",
+        "func": "return msg = {\n    payload: {\n        \"metrics\": [\n        {\n            \"name\" : 'Temperature',\n            \"floatValue\": msg.payload.Temperature,\n            \"datatype\" : 9\n        },\n        {\n            \"name\": 'Humidity',\n            \"floatValue\": msg.payload.Humidity,\n            \"datatype\" : 9\n        }]\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 340,
+        "wires": [
+            [
+                "7851c1ee70e0086d"
+            ]
+        ]
+    },
+    {
+        "id": "f32d4caf4b881a5e",
+        "type": "mqtt in",
+        "z": "2e1881eaf0bfaebd",
+        "name": "mosquittoRpi",
+        "topic": "/ESIEA/grp4",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "ee90280e7be48ad9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 470,
+        "y": 340,
+        "wires": [
+            [
+                "90ef91771938e74e"
+            ]
+        ]
+    },
+    {
+        "id": "2772c9779e20aaf3",
+        "type": "mqtt out",
+        "z": "2e1881eaf0bfaebd",
+        "name": "",
+        "topic": "spBv1.0/ESIEA/DDATA/raspberry/esp8266_4",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2c386a7b98d81660",
+        "x": 1370,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7851c1ee70e0086d",
+        "type": "encode",
+        "z": "2e1881eaf0bfaebd",
+        "name": "",
+        "protofile": "416508115f4c9391",
+        "protoType": "Payload",
+        "x": 1040,
+        "y": 340,
+        "wires": [
+            [
+                "2772c9779e20aaf3"
+            ]
+        ]
+    },
+    {
+        "id": "ee90280e7be48ad9",
+        "type": "mqtt-broker",
+        "name": "mosquitto",
+        "broker": "192.168.1.4",
+        "port": "1883",
+        "tls": "1b800064e2ef4857",
+        "clientid": "clientfelix",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "2c386a7b98d81660",
+        "type": "mqtt-broker",
+        "name": "RIO",
+        "broker": "192.168.1.3",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "416508115f4c9391",
+        "type": "protobuf-file",
+        "protopath": "C:\\Users\\felix\\Downloads\\sparkplug_b.proto",
+        "watchFile": true,
+        "keepCase": false
+    },
+    {
+        "id": "1b800064e2ef4857",
+        "type": "tls-config",
+        "name": "TLS Configuration",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": true,
+        "alpnprotocol": ""
+    }
+]
